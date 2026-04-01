@@ -20,87 +20,180 @@ export type Profile = {
   updated_at: string
 }
 
-// ─── Tipos de seção ───────────────────────────────────
-export type SectionType =
-  | 'hero'
-  | 'features'
-  | 'cta'
-  | 'testimonial'
-  | 'footer'
+/* ═══════════════════════════════════════════════════════
+   Section Style — override de estilos por seção
+   ═══════════════════════════════════════════════════════ */
+export type SectionStyle = {
+  bgColor?: string
+  textColor?: string
+  accentColor?: string
+  paddingY?: 'sm' | 'md' | 'lg' | 'xl'
+}
 
-// ─── Props de cada tipo de seção ─────────────────────
+/* ═══════════════════════════════════════════════════════
+   Props de cada tipo de seção
+   ═══════════════════════════════════════════════════════ */
+
+// ── Navbar ────────────────────────────────────────────
+export type NavbarProps = {
+  logo: string
+  links: { label: string; href: string }[]
+  ctaText?: string
+  ctaUrl?: string
+  style?: SectionStyle
+}
+
+// ── Hero ──────────────────────────────────────────────
 export type HeroProps = {
+  variant: 'centered' | 'split-left' | 'split-right'
   headline: string
   subheadline: string
-  ctaText: string
-  ctaUrl: string
-  bgColor: string
-  textColor: string
+  primaryCtaText: string
+  primaryCtaUrl: string
+  secondaryCtaText?: string
+  secondaryCtaUrl?: string
   imageUrl?: string
+  style?: SectionStyle
 }
 
+// ── Logos (faixa de clientes/parceiros) ───────────────
+export type LogosProps = {
+  title?: string
+  items: { name: string; imageUrl: string }[]
+  style?: SectionStyle
+}
+
+// ── Features (grade de funcionalidades) ───────────────
 export type FeaturesProps = {
+  variant: 'grid-3' | 'grid-2' | 'list'
+  label?: string
   title: string
+  subtitle?: string
+  items: { icon: string; title: string; description: string }[]
+  style?: SectionStyle
+}
+
+// ── Benefits (por que escolher / diferenciais) ────────
+export type BenefitsProps = {
+  variant: 'image-left' | 'image-right' | 'centered'
+  label?: string
+  title: string
+  subtitle?: string
+  items: { icon?: string; title: string; description: string }[]
+  imageUrl?: string
+  ctaText?: string
+  ctaUrl?: string
+  style?: SectionStyle
+}
+
+// ── Steps (como funciona / passo a passo) ─────────────
+export type StepsProps = {
+  label?: string
+  title: string
+  subtitle?: string
+  steps: { title: string; description: string; imageUrl?: string }[]
+  style?: SectionStyle
+}
+
+// ── Testimonials ──────────────────────────────────────
+export type TestimonialsProps = {
+  variant: 'grid' | 'single'
+  label?: string
+  title?: string
   items: {
-    icon: string
-    title: string
-    description: string
+    quote: string
+    authorName: string
+    authorRole: string
+    authorCompany?: string
+    avatarUrl?: string
+    rating?: number // 1–5
   }[]
-  bgColor: string
-  textColor: string
+  style?: SectionStyle
 }
 
+// ── Pricing ───────────────────────────────────────────
+export type PricingProps = {
+  label?: string
+  title: string
+  subtitle?: string
+  plans: {
+    name: string
+    price: string
+    period?: string
+    description?: string
+    features: string[]
+    ctaText: string
+    ctaUrl: string
+    highlighted?: boolean
+    badge?: string
+  }[]
+  style?: SectionStyle
+}
+
+// ── FAQ ───────────────────────────────────────────────
+export type FAQProps = {
+  label?: string
+  title: string
+  subtitle?: string
+  items: { question: string; answer: string }[]
+  style?: SectionStyle
+}
+
+// ── CTA ───────────────────────────────────────────────
 export type CTAProps = {
+  variant: 'centered' | 'card'
   headline: string
-  subheadline: string
-  buttonText: string
-  buttonUrl: string
-  bgColor: string
-  textColor: string
+  subheadline?: string
+  primaryCtaText: string
+  primaryCtaUrl: string
+  secondaryCtaText?: string
+  secondaryCtaUrl?: string
+  style?: SectionStyle
 }
 
-export type TestimonialProps = {
-  quote: string
-  authorName: string
-  authorRole: string
-  avatarUrl?: string
-  bgColor: string
-  textColor: string
-}
-
+// ── Footer ────────────────────────────────────────────
 export type FooterProps = {
+  logo?: string
+  tagline?: string
+  columns: { title: string; links: { label: string; href: string }[] }[]
   copyright: string
-  links: {
-    label: string
-    url: string
-  }[]
-  bgColor: string
-  textColor: string
+  bottomLinks?: { label: string; href: string }[]
+  style?: SectionStyle
 }
 
-export type SectionProps =
-  | HeroProps
-  | FeaturesProps
-  | CTAProps
-  | TestimonialProps
-  | FooterProps
+/* ═══════════════════════════════════════════════════════
+   Section — union discriminada por type
+   ═══════════════════════════════════════════════════════ */
+export type Section =
+  | { id: string; type: 'navbar';       props: NavbarProps       }
+  | { id: string; type: 'hero';         props: HeroProps         }
+  | { id: string; type: 'logos';        props: LogosProps        }
+  | { id: string; type: 'features';     props: FeaturesProps     }
+  | { id: string; type: 'benefits';     props: BenefitsProps     }
+  | { id: string; type: 'steps';        props: StepsProps        }
+  | { id: string; type: 'testimonials'; props: TestimonialsProps }
+  | { id: string; type: 'pricing';      props: PricingProps      }
+  | { id: string; type: 'faq';         props: FAQProps          }
+  | { id: string; type: 'cta';         props: CTAProps          }
+  | { id: string; type: 'footer';      props: FooterProps       }
 
-// ─── Seção ────────────────────────────────────────────
-export type Section = {
-  id: string
-  type: SectionType
-  props: SectionProps
-}
+export type SectionType = Section['type']
 
-// ─── Conteúdo da página ───────────────────────────────
+// Helper: extrai Props a partir do type
+export type PropsForType<T extends SectionType> = Extract<Section, { type: T }>['props']
+
+/* ═══════════════════════════════════════════════════════
+   PageContent
+   ═══════════════════════════════════════════════════════ */
 export type PageContent = {
   sections: Section[]
 }
 
-// ─── Status do projeto ────────────────────────────────
+/* ═══════════════════════════════════════════════════════
+   Status / Projeto
+   ═══════════════════════════════════════════════════════ */
 export type ProjectStatus = 'draft' | 'published'
 
-// ─── Projeto ──────────────────────────────────────────
 export type Project = {
   id: string
   user_id: string
