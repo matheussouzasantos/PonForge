@@ -1,0 +1,103 @@
+/* Scroll fixes for offline viewing */
+      html,
+      body {
+        overflow: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100% !important;
+        scroll-behavior: auto !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+
+      /* Force visibility - many sites use JS animations for initial display */
+      body,
+      .wrapper,
+      main,
+      #__next,
+      #app,
+      .page,
+      .content {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+      }
+
+      /* Disable loader/preloader overlays */
+      .loader,
+      .preloader,
+      .loading,
+      [class*="loader"],
+      [class*="preloader"] {
+        display: none !important;
+        opacity: 0 !important;
+      }
+
+      /* Show elements that might be hidden for animation */
+      .word-inner,
+      .char,
+      .line,
+      [data-aos],
+      [data-scroll],
+      .hero-text span,
+      .hero-fade,
+      [class*="hero"] span {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+      }
+
+      /* Reset Tailwind animation utility classes */
+      .translate-y-full,
+      .translate-x-full,
+      .-translate-y-full,
+      .-translate-x-full,
+      .translate-y-1\/2,
+      .-translate-y-1\/2,
+      .translate-y-\[100\%\],
+      .translate-y-\[110\%\] {
+        transform: none !important;
+      }
+
+      /* Force visibility on common hidden-for-animation patterns */
+      .opacity-0,
+      [class*="opacity-0"] {
+        opacity: 1 !important;
+      }
+
+      /* Reset scale transforms used for animations */
+      .scale-0,
+      .scale-50,
+      .scale-75 {
+        transform: none !important;
+      }
+
+      html.lenis,
+      html.lenis-smooth,
+      body.lenis,
+      body.lenis-smooth,
+      .lenis-wrapper,
+      .lenis-content,
+      [data-lenis-prevent],
+      [data-scroll-container] {
+        overflow: visible !important;
+        height: auto !important;
+      }
+
+      /* Fix flex containers that might cut off content */
+      body.flex.items-center,
+      body.flex.justify-center {
+        align-items: flex-start !important;
+        min-height: 100vh;
+        height: auto !important;
+      }
+
+      /* Ensure main content scrolls */
+      main,
+      #__next,
+      #__nuxt,
+      #app,
+      .main-content {
+        overflow: visible !important;
+        height: auto !important;
+      }
