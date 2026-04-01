@@ -1,143 +1,83 @@
 <div align="center">
 
-<img src="public/logo.png" alt="PonForge Logo" width="80" />
-
 # PonForge
 
-**Turn design inspiration into launch-ready landing pages.**
+**Crie landing pages profissionais sem escrever uma linha de código.**
 
-[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)](https://nextjs.org)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://typescriptlang.org)
-[![Supabase](https://img.shields.io/badge/Supabase-Database%20%26%20Auth-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com)
-[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat-square&logo=vercel)](https://vercel.com)
-[![License](https://img.shields.io/badge/License-MIT-purple?style=flat-square)](LICENSE)
-
-[Demo](#) · [Roadmap](#roadmap) · [Report Bug](#) · [Request Feature](#)
+[![Supabase](https://img.shields.io/badge/Supabase-Auth%20%26%20DB-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
 
 </div>
 
 ---
 
-## ✦ O que é o PonForge?
+## O que é o PonForge?
 
-PonForge é um SaaS para criação de landing pages premium. Escolha um template, personalize no editor visual, publique com um clique.
+PonForge é um SaaS de criação de landing pages focado em design premium e velocidade de publicação. A proposta é simples: você monta sua página por seções, personaliza no editor visual e publica com um clique — sem lidar com código, hospedagem ou configuração.
 
-Sem código. Sem complicação. Resultado profissional.
-
----
-
-## ✦ Features
-
-- 🎨 **Templates premium** — designs prontos para clonar e editar
-- ✏️ **Editor visual por seções** — edite textos, cores e imagens em tempo real
-- 🤖 **Pon AI** — gere headlines e copy com inteligência artificial
-- 🚀 **Publicação com um clique** — URL pública instantânea
-- 🎨 **Design Systems** — presets de fonte + paleta aplicados globalmente
-- 🏷️ **Brand Kit** — logo, cor e fonte da sua marca em todos os projetos
+O produto é construído para criadores, freelancers e agências que precisam de resultado profissional sem o overhead de uma ferramenta complexa.
 
 ---
 
-## ✦ Stack
+## O que está pronto
+
+- **Autenticação completa** — login com e-mail/senha e Google OAuth, recuperação de senha, cadastro com confirmação por e-mail
+- **Dashboard** — área autenticada com sidebar de navegação, topbar e menu do usuário
+- **Perfil de usuário** — criado automaticamente no primeiro login (inclusive via OAuth), com dados do Google sincronizados
+- **Sistema de planos** — Trial, Starter, Pro e Agency com controle de acesso por perfil
+- **Proteção de rotas** — middleware server-side que bloqueia acesso não autenticado ao dashboard
+- **Design system próprio** — paleta, tipografia e componentes consistentes em toda a interface
+
+---
+
+## O que está sendo construído
+
+- **Editor visual por seções** — monte páginas combinando blocos prontos: Hero, Features, CTA, Testimonial, Footer. Cada seção tem props editáveis (textos, cores, imagens)
+- **Templates premium** — designs prontos para clonar e adaptar em minutos
+- **Publicação com URL pública** — cada projeto gera uma URL pública acessível em `/p/[slug]`
+- **Brand Kit** — salve logo, paleta e fonte da sua marca para aplicar em todos os projetos
+- **Planos e billing** — integração com Stripe para gestão de assinaturas
+
+---
+
+## Pon AI *(em desenvolvimento)*
+
+A inteligência artificial do PonForge vai além de gerar copy.
+
+O diferencial planejado é a análise de sites por URL: você cola o link de qualquer site que te inspira e a Pon AI extrai o estilo visual dele — paleta de cores, tipografia, espaçamentos, tom de voz — e aplica como ponto de partida para a sua página.
+
+A ideia é eliminar o tempo gasto tentando replicar manualmente uma referência visual. Você indica a inspiração, a IA traduz em estrutura editável.
+
+---
+
+## Stack
 
 | Camada | Tecnologia |
 |---|---|
-| Frontend | Next.js 14 (App Router) + TypeScript |
-| Estilização | Tailwind CSS + shadcn/ui |
+| Framework | Next.js 16 (App Router) |
+| Linguagem | TypeScript 5 |
+| Estilização | Tailwind CSS v4 + shadcn/ui |
 | Banco de dados | Supabase (PostgreSQL) |
-| Autenticação | Supabase Auth (Email + Google OAuth) |
+| Autenticação | Supabase Auth — Email + Google OAuth |
 | Storage | Supabase Storage |
-| Estado | Zustand |
-| AI | OpenAI API (gpt-4o-mini) |
+| Estado global | Zustand |
 | Deploy | Vercel |
 
 ---
 
-## ✦ Estrutura do projeto
-```
-ponforge/
-├── app/
-│   ├── (auth)/          # Login, signup, forgot password
-│   ├── (dashboard)/     # Dashboard, editor, templates
-│   ├── auth/callback/   # Handler OAuth do Supabase
-│   └── p/[slug]/        # Páginas públicas publicadas
-├── components/
-│   ├── editor/          # Canvas, painéis, lista de seções
-│   ├── renderer/        # Componentes de seção (Hero, CTA...)
-│   └── ui/              # Componentes compartilhados
-├── lib/
-│   ├── supabase.ts      # Client singleton
-│   ├── types.ts         # Tipos TypeScript
-│   └── templates/       # JSONs dos templates
-└── hooks/               # useAutoSave, useProject...
-```
+## Planos
 
----
-
-## ✦ Rodando localmente
-
-**Pré-requisitos:** Node.js 18+, conta no Supabase
-```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/ponforge.git
-cd ponforge
-
-# Instale as dependências
-npm install
-
-# Configure as variáveis de ambiente
-cp .env.example .env.local
-# Edite o .env.local com suas chaves do Supabase
-
-# Rode o projeto
-npm run dev
-```
-
-Acesse `http://localhost:3000`
-
----
-
-## ✦ Variáveis de ambiente
-
-Crie um arquivo `.env.local` na raiz com:
-```env
-NEXT_PUBLIC_SUPABASE_URL=sua_url_aqui
-NEXT_PUBLIC_SUPABASE_ANON_KEY=sua_chave_aqui
-```
-
----
-
-## ✦ Roadmap
-
-- [x] Autenticação (Email + Google)
-- [x] Dashboard de projetos
-- [ ] Templates premium
-- [ ] Editor visual por seções
-- [ ] Publicação com URL pública
-- [ ] Pon AI — geração de copy
-- [ ] Design Systems
-- [ ] Brand Kit
-- [ ] Domínio customizado
-- [ ] Planos e billing (Stripe)
-
----
-
-## ✦ Planos
-
-| Plano | Descrição |
+| Plano | Perfil |
 |---|---|
-| **Trial** | 7 dias grátis com acesso completo |
+| **Trial** | 7 dias com acesso completo, sem cartão |
 | **Starter** | Para criadores e freelancers |
-| **Pro** | Para times e agências em crescimento |
+| **Pro** | Para times em crescimento |
 | **Agency** | Acesso total, projetos ilimitados |
 
 ---
 
-## ✦ Licença
-
-MIT © [PonForge](https://ponforge.com)
-
----
-
 <div align="center">
-  <sub>Feito com foco em design premium e simplicidade.</sub>
+  <sub>PonForge — design premium, publicação simples.</sub>
 </div>
