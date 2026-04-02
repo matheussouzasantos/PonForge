@@ -1,0 +1,605 @@
+/* ══════════════════════════════════════════════════════════
+   PonForge — Section Edit Panel
+   Painel lateral de edição de seções do editor.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Container deslizante ─────────────────────────────── */
+.pf-edit-panel {
+  width: 340px;
+  height: 100vh;
+  background: #141416;
+  border-right: 1px solid #1E1E21;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  animation: pf-edit-panel-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+@keyframes pf-edit-panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── Header ───────────────────────────────────────────── */
+.pf-edit-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  height: 56px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #1E1E21;
+}
+
+.pf-edit-panel__icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 106, 43, 0.1);
+  color: #FF6A2B;
+  flex-shrink: 0;
+}
+
+.pf-edit-panel__title-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.pf-edit-panel__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #F5E6D3;
+  line-height: 1.2;
+}
+
+.pf-edit-panel__subtitle {
+  font-size: 11px;
+  color: #52525B;
+  line-height: 1.2;
+  margin-top: 1px;
+}
+
+.pf-edit-panel__close {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #52525B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.pf-edit-panel__close:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #F5E6D3;
+}
+
+/* ── Content scrollable ───────────────────────────────── */
+.pf-edit-panel__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.pf-edit-panel__body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.pf-edit-panel__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pf-edit-panel__body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+/* ── Form Groups ──────────────────────────────────────── */
+.pf-edit-group {
+  margin-bottom: 20px;
+}
+
+.pf-edit-group__label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #71717A;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.pf-edit-group__hint {
+  font-size: 11px;
+  color: #3F3F46;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* ── Input ────────────────────────────────────────────── */
+.pf-edit-input {
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #D4D4D8;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid #2A2A2D;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.pf-edit-input:hover {
+  border-color: #3F3F46;
+}
+
+.pf-edit-input:focus {
+  border-color: #FF6A2B;
+  background: rgba(255, 106, 43, 0.04);
+}
+
+.pf-edit-input::placeholder {
+  color: #3F3F46;
+}
+
+/* ── Textarea ─────────────────────────────────────────── */
+.pf-edit-textarea {
+  width: 100%;
+  min-height: 72px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #D4D4D8;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid #2A2A2D;
+  border-radius: 8px;
+  outline: none;
+  resize: vertical;
+  line-height: 1.5;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.pf-edit-textarea:hover {
+  border-color: #3F3F46;
+}
+
+.pf-edit-textarea:focus {
+  border-color: #FF6A2B;
+  background: rgba(255, 106, 43, 0.04);
+}
+
+.pf-edit-textarea::placeholder {
+  color: #3F3F46;
+}
+
+/* ── Select ───────────────────────────────────────────── */
+.pf-edit-select {
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #D4D4D8;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid #2A2A2D;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' stroke='%2371717A' fill='none' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.pf-edit-select:hover {
+  border-color: #3F3F46;
+}
+
+.pf-edit-select:focus {
+  border-color: #FF6A2B;
+}
+
+.pf-edit-select option {
+  background: #1A1A1D;
+  color: #D4D4D8;
+}
+
+/* ── Divider ──────────────────────────────────────────── */
+.pf-edit-divider {
+  height: 1px;
+  background: #1E1E21;
+  margin: 20px 0;
+}
+
+/* ── Section heading inside panel ─────────────────────── */
+.pf-edit-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #52525B;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pf-edit-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #1E1E21;
+}
+
+/* ── Empty state placeholder ──────────────────────────── */
+.pf-edit-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 32px 16px;
+  text-align: center;
+}
+
+.pf-edit-empty__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  color: #3F3F46;
+}
+
+.pf-edit-empty__text {
+  font-size: 12px;
+  color: #3F3F46;
+  line-height: 1.5;
+}
+
+/* ── Item list (for links, features, etc.) ────────────── */
+.pf-edit-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.pf-edit-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid #1E1E21;
+  transition: border-color 0.15s;
+}
+
+.pf-edit-item:hover {
+  border-color: #2A2A2D;
+}
+
+.pf-edit-item__label {
+  font-size: 12px;
+  color: #A1A1AA;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pf-edit-item__badge {
+  font-size: 10px;
+  color: #52525B;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  flex-shrink: 0;
+}
+
+.pf-edit-item__actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.pf-edit-item:hover .pf-edit-item__actions {
+  opacity: 1;
+}
+
+.pf-edit-item__btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #52525B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.pf-edit-item__btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #A1A1AA;
+}
+
+.pf-edit-item__btn--danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+}
+
+/* ── Item coluna (campos empilhados dentro de item) ─── */
+.pf-edit-item--col {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 10px;
+}
+
+.pf-edit-item-row {
+  display: flex;
+  gap: 6px;
+}
+
+.pf-edit-item-row .pf-edit-input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Input variantes ──────────────────────────────── */
+.pf-edit-input--icon {
+  width: 42px !important;
+  flex: none !important;
+  text-align: center;
+  padding: 0 6px;
+  font-size: 15px;
+}
+
+.pf-edit-input--sm {
+  width: 80px !important;
+  flex: none !important;
+}
+
+/* ── Textarea pequena ─────────────────────────────── */
+.pf-edit-textarea--sm {
+  min-height: 52px;
+}
+
+/* ── Step number badge ────────────────────────────── */
+.pf-edit-step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(255, 106, 43, 0.12);
+  color: #FF6A2B;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Color Field
+   ══════════════════════════════════════════════════════════ */
+.pf-color-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pf-color-field__swatch {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid #2A2A2D;
+  flex-shrink: 0;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.15s, transform 0.12s;
+  position: relative;
+  overflow: hidden;
+}
+
+.pf-color-field__swatch:hover {
+  border-color: #3F3F46;
+  transform: scale(1.05);
+}
+
+/* Checkerboard para cores transparentes */
+.pf-color-field__swatch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(45deg, #333 25%, transparent 25%),
+    linear-gradient(-45deg, #333 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #333 75%),
+    linear-gradient(-45deg, transparent 75%, #333 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0;
+  z-index: 0;
+}
+
+.pf-color-field__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  z-index: 1;
+}
+
+.pf-color-field__picker {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pf-color-field__hex {
+  flex: 1;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Image Upload
+   ══════════════════════════════════════════════════════════ */
+.pf-img-upload {
+  position: relative;
+}
+
+.pf-img-upload__input {
+  display: none;
+}
+
+/* Dropzone vazio */
+.pf-img-upload__dropzone {
+  width: 100%;
+  height: 80px;
+  border: 1px dashed #2A2A2D;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  color: #52525B;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.pf-img-upload__dropzone:hover:not(:disabled) {
+  border-color: #FF6A2B;
+  background: rgba(255, 106, 43, 0.04);
+  color: #FF6A2B;
+}
+
+.pf-img-upload__dropzone:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pf-img-upload__icon {
+  color: inherit;
+}
+
+.pf-img-upload__label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.pf-img-upload__hint-sm {
+  font-size: 10px;
+  color: #3F3F46;
+}
+
+.pf-img-upload__uploading {
+  font-size: 12px;
+  color: #FF6A2B;
+  animation: pf-pulse 1s ease-in-out infinite;
+}
+
+@keyframes pf-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* Preview com imagem */
+.pf-img-upload__preview {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #2A2A2D;
+  height: 80px;
+}
+
+.pf-img-upload__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pf-img-upload__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.pf-img-upload__preview:hover .pf-img-upload__overlay {
+  opacity: 1;
+}
+
+.pf-img-upload__action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #F5E6D3;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.pf-img-upload__action:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.pf-img-upload__action--danger {
+  width: 28px;
+  padding: 5px;
+  justify-content: center;
+}
+
+.pf-img-upload__action--danger:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #EF4444;
+}
