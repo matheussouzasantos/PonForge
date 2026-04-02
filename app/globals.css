@@ -128,3 +128,214 @@
     @apply font-sans;
   }
 }
+
+/* ── Save indicator dot ──────────────────────────────── */
+.pf-save-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.pf-save-dot--pulsing {
+  animation: pf-save-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pf-save-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Editor Sidebar — botões Salvar / Publicar
+   ══════════════════════════════════════════════════════════ */
+.pf-sidebar-btn {
+  flex: 1;
+  height: 34px;
+  border-radius: 9px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, opacity 0.15s;
+}
+
+.pf-sidebar-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pf-sidebar-btn--secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #2A2A2D;
+  color: #A1A1AA;
+}
+
+.pf-sidebar-btn--secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: #3F3F46;
+  color: #F5E6D3;
+}
+
+.pf-sidebar-btn--primary {
+  background: #FF6A2B;
+  border-color: #FF6A2B;
+  color: #fff;
+}
+
+.pf-sidebar-btn--primary:hover:not(:disabled) {
+  background: #ff7d44;
+  border-color: #ff7d44;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Modal — Alterações não salvas
+   ══════════════════════════════════════════════════════════ */
+.pf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(3px);
+  animation: pf-overlay-in 0.15s ease;
+}
+
+@keyframes pf-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.pf-modal {
+  width: 100%;
+  max-width: 400px;
+  background: #1A1A1D;
+  border: 1px solid #2A2A2D;
+  border-radius: 16px;
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: pf-modal-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 0 16px;
+}
+
+@keyframes pf-modal-in {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.pf-modal__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(251, 191, 36, 0.1);
+  color: #FBBF24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pf-modal__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #F5E6D3;
+  margin: 0;
+}
+
+.pf-modal__desc {
+  font-size: 13px;
+  color: #71717A;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.pf-modal__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.pf-modal__btn {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 9px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, opacity 0.15s;
+}
+
+.pf-modal__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pf-modal__btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: #71717A;
+  flex: 1;
+  justify-content: center;
+}
+
+.pf-modal__btn--ghost:hover:not(:disabled) {
+  color: #A1A1AA;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.pf-modal__btn--danger {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.25);
+  color: #EF4444;
+}
+
+.pf-modal__btn--danger:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.pf-modal__btn--primary {
+  background: #FF6A2B;
+  border-color: #FF6A2B;
+  color: #fff;
+}
+
+.pf-modal__btn--primary:hover:not(:disabled) {
+  background: #ff7d44;
+  border-color: #ff7d44;
+}
+
+/* ── Save toast animation ──────────────────────────── */
+@keyframes pf-toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Modal in animation ────────────────────────────── */
+@keyframes pf-modal-in {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}

@@ -4,6 +4,10 @@
    ══════════════════════════════════════════════════════════ */
 
 /* ── Reset mínimo para o renderer ─────────────────────── */
+.pf-r {
+  min-height: 100%;
+}
+
 .pf-r * {
   box-sizing: border-box;
 }

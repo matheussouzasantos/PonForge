@@ -87,6 +87,18 @@ export function ProjectsContent({ projects, userId }: { projects: Project[]; use
     router.refresh()
   }
 
+  /* ─── unpublish project ──────────────────────────────── */
+  async function handleUnpublishProject(id: string) {
+    const { error } = await supabase
+      .from('projects')
+      .update({ status: 'draft', updated_at: new Date().toISOString() })
+      .eq('id', id)
+
+    if (error) throw new Error(error.message)
+
+    router.refresh()
+  }
+
   /* ─── render ───────────────────────────────────────── */
   return (
     <>
@@ -178,6 +190,7 @@ export function ProjectsContent({ projects, userId }: { projects: Project[]; use
                   onDelete={() => handleDeleteProject(project.id)}
                   onDuplicate={() => setDuplicatingProject(project)}
                   onRename={(newName) => handleRenameProject(project.id, newName)}
+                  onUnpublish={() => handleUnpublishProject(project.id)}
                 />
               ))}
             </div>

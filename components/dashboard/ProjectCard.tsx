@@ -38,7 +38,7 @@ function relativeTime(iso: string) {
   return formatDate(iso)
 }
 
-type MenuState = 'idle' | 'confirming-delete' | 'renaming'
+type MenuState = 'idle' | 'confirming-delete' | 'renaming' | 'confirming-unpublish'
 
 /* ─── component ───────────────────────────────────────── */
 export function ProjectCard({
@@ -46,16 +46,19 @@ export function ProjectCard({
   onDelete,
   onDuplicate,
   onRename,
+  onUnpublish,
 }: {
   project: Project
   onDelete: () => Promise<void>
   onDuplicate: () => void
   onRename: (newName: string) => Promise<void>
+  onUnpublish: () => Promise<void>
 }) {
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
   const [menuState, setMenuState] = useState<MenuState>('idle')
   const [deleting, setDeleting] = useState(false)
+  const [unpublishing, setUnpublishing] = useState(false)
   const [renameValue, setRenameValue] = useState('')
   const [renaming, setRenaming] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -101,6 +104,16 @@ export function ProjectCard({
     }
   }
 
+  async function handleConfirmUnpublish() {
+    setUnpublishing(true)
+    try {
+      await onUnpublish()
+      closeMenu()
+    } catch {
+      setUnpublishing(false)
+    }
+  }
+
   async function handleConfirmRename() {
     const trimmed = renameValue.trim()
     if (!trimmed || trimmed === project.name || trimmed.length < 3) return
@@ -132,7 +145,7 @@ export function ProjectCard({
   return (
     <div
       className="pf-project-card"
-      onClick={() => router.push(`/dashboard/projects/${project.id}`)}
+      onClick={() => router.push(`/editor/${project.id}`)}
     >
       {/* Three-dot menu */}
       <div
@@ -161,18 +174,41 @@ export function ProjectCard({
                 </button>
                 <button
                   className="pf-dropdown__item"
-                  onClick={() => {
-                    closeMenu()
-                    onDuplicate()
-                  }}
+                  onClick={() => { closeMenu(); onDuplicate() }}
                 >
                   <Copy size={14} />
                   Duplicar
                 </button>
-                <button className="pf-dropdown__item" onClick={closeMenu}>
-                  <ExternalLink size={14} />
-                  Ver online
-                </button>
+
+                {/* Ver online — só se publicado */}
+                {!isDraft && (
+                  <a
+                    className="pf-dropdown__item"
+                    href={`/p/${project.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={closeMenu}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <ExternalLink size={14} />
+                    Ver online
+                  </a>
+                )}
+
+                {/* Despublicar — só se publicado */}
+                {!isDraft && (
+                  <>
+                    <div className="pf-dropdown__divider" />
+                    <button
+                      className="pf-dropdown__item"
+                      onClick={() => setMenuState('confirming-unpublish')}
+                    >
+                      <Globe size={14} />
+                      Despublicar
+                    </button>
+                  </>
+                )}
+
                 <div className="pf-dropdown__divider" />
                 <button
                   className="pf-dropdown__item --danger"
@@ -217,6 +253,38 @@ export function ProjectCard({
                       <Check size={12} />
                     )}
                     {renaming ? 'Salvando...' : 'Salvar'}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {menuState === 'confirming-unpublish' && (
+              <div className="pf-dropdown__confirm">
+                <div className="pf-dropdown__confirm-icon">
+                  <Globe size={15} />
+                </div>
+                <p className="pf-dropdown__confirm-text">
+                  Despublicar <strong>{project.name}</strong>? A página ficará offline.
+                </p>
+                <div className="pf-dropdown__confirm-actions">
+                  <button
+                    className="pf-dropdown__confirm-cancel"
+                    onClick={() => setMenuState('idle')}
+                    disabled={unpublishing}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    className="pf-dropdown__confirm-delete"
+                    onClick={handleConfirmUnpublish}
+                    disabled={unpublishing}
+                  >
+                    {unpublishing ? (
+                      <Loader2 size={12} className="pf-spinner" />
+                    ) : (
+                      <Globe size={12} />
+                    )}
+                    {unpublishing ? 'Despublicando...' : 'Despublicar'}
                   </button>
                 </div>
               </div>
