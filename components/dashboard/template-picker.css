@@ -1,0 +1,323 @@
+/* ═══════════════════════════════════════════════════════
+   PonForge — Template Picker
+   ═══════════════════════════════════════════════════════ */
+
+.pf-tpl-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.pf-tpl-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #555;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 32px;
+  transition: color 0.2s;
+}
+
+.pf-tpl-back:hover {
+  color: #A1A1AA;
+}
+
+.pf-tpl-header {
+  margin-bottom: 40px;
+}
+
+.pf-tpl-header__project {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.pf-tpl-header__info h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+
+.pf-tpl-header__info p {
+  font-size: 14px;
+  color: #A1A1AA;
+  line-height: 1.6;
+  margin: 0 0 28px;
+  max-width: 520px;
+}
+
+/* ── Category filters ───────────────────────────────── */
+.pf-tpl-filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pf-tpl-filter {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #121214;
+  color: #A1A1AA;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pf-tpl-filter:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #F5E6D3;
+  background: #1A1A1D;
+}
+
+.pf-tpl-filter.--active {
+  background: rgba(255, 106, 43, 0.12);
+  border-color: rgba(255, 106, 43, 0.3);
+  color: #FF6A2B;
+}
+
+/* ── Grid ───────────────────────────────────────────── */
+.pf-tpl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* ── Card ───────────────────────────────────────────── */
+.pf-tpl-card {
+  background: #1A1A1D;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.pf-tpl-card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+/* Preview area */
+.pf-tpl-card__preview {
+  position: relative;
+  height: 180px;
+  background: #121214;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.pf-tpl-card__glow {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 80px;
+  border-radius: 50%;
+  opacity: 0.15;
+  filter: blur(24px);
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.pf-tpl-card:hover .pf-tpl-card__glow {
+  opacity: 0.28;
+}
+
+.pf-tpl-card__preview-inner {
+  position: relative;
+  z-index: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Skeleton — navbar */
+.pf-tpl-card__nav-bar {
+  height: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+}
+
+/* Skeleton — hero */
+.pf-tpl-card__hero {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pf-tpl-card__hero-line {
+  height: 8px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.pf-tpl-card__hero-line.--wide {
+  width: 85%;
+}
+
+.pf-tpl-card__hero-line.--narrow {
+  width: 60%;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.pf-tpl-card__hero-btns {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.pf-tpl-card__hero-btn {
+  height: 18px;
+  border-radius: 4px;
+}
+
+.pf-tpl-card__hero-btn.--primary {
+  width: 72px;
+  opacity: 0.7;
+}
+
+.pf-tpl-card__hero-btn.--ghost {
+  width: 56px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Skeleton — section strip */
+.pf-tpl-card__section-strip {
+  display: flex;
+  gap: 6px;
+}
+
+.pf-tpl-card__section-block {
+  flex: 1;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+}
+
+/* Card body */
+.pf-tpl-card__body {
+  padding: 20px 20px 0;
+  flex: 1;
+}
+
+.pf-tpl-card__top {
+  margin-bottom: 10px;
+}
+
+.pf-tpl-category {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+
+.pf-tpl-card__name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.pf-tpl-card__desc {
+  font-size: 13px;
+  color: #A1A1AA;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+
+/* Section pills */
+.pf-tpl-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.pf-tpl-section-pill {
+  font-size: 11px;
+  color: #555;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+/* Card footer */
+.pf-tpl-card__footer {
+  padding: 0 20px 20px;
+}
+
+.pf-tpl-use-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 11px 0;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: color-mix(in srgb, var(--btn-color) 15%, transparent);
+  color: var(--btn-color);
+  border: 1px solid color-mix(in srgb, var(--btn-color) 30%, transparent);
+}
+
+.pf-tpl-use-btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--btn-color) 22%, transparent);
+  border-color: color-mix(in srgb, var(--btn-color) 50%, transparent);
+  transform: translateY(-1px);
+}
+
+.pf-tpl-use-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Spinner (reuse from projects.css) ──────────────── */
+.pf-spinner {
+  animation: pf-tpl-spin 0.7s linear infinite;
+}
+
+@keyframes pf-tpl-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 640px) {
+  .pf-tpl-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pf-tpl-header__info h1 {
+    font-size: 22px;
+  }
+}
